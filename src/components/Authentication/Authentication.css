@@ -1,0 +1,63 @@
+.authentication .form {
+  background-color: #3c3d37;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.authentication .form .label-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.authentication .label-input label {
+  color: #b4daa7;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  margin-bottom: 3px;
+  font-weight: 400;
+}
+
+.authentication .label-input input {
+  padding: 3px 5px;
+  font-size: 1.05rem;
+  font-weight: 400;
+  border-radius: 5px;
+  background-color: #ecdfcc;
+  color: #181c14;
+  margin-bottom: 15px;
+}
+
+.authentication .form .switch-auth {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.authentication .form .switch-auth p {
+  color: #ecdfcc;
+  font-size: 1.15rem;
+  text-decoration: underline;
+}
+
+.authentication .submit-button {
+  background-color: #697565;
+  color: #ecdfcc;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 250px;
+  height: 35px;
+}
+
+@media (min-width: 768px) {
+  .authentication .form {
+    width: 50%;
+    margin: 0 auto;
+  }
+}
