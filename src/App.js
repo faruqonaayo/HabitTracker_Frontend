@@ -1,6 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
-import Authentication from './components/Authentication/Authentication';
+import "./App.css";
+import Authentication from "./components/Authentication/Authentication";
 
 function App() {
   return (
