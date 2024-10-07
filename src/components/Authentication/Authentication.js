@@ -1,28 +1,70 @@
 import { useState } from "react";
+
+import axios from "axios";
+
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import "./Authentication.css";
 
-function Authentication({}) {
+function Authentication() {
   const [formType, setFormType] = useState("login");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  // const [passwordMatch, setPasswordMatch] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleFormType() {
+    setErrorMessage("");
     setFormType(formType === "login" ? "signup" : "login");
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log("Form submitted");
+  async function handleSubmit(e) {
+    try {
+      e.preventDefault();
+      if (password !== confirmPassword) {
+        setErrorMessage("Passwords do not match");
+      } else if (
+        formType === "signup" &&
+        firstName.length > 1 &&
+        lastName.length > 1 &&
+        password.length >= 5
+      ) {
+        const response = await axios.put("http://localhost:3000/auth/signup", {
+          firstName,
+          lastName,
+          email,
+          password,
+          confirmPassword,
+        });
+
+        console.log(response.data);
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setFormType("login");
+        setErrorMessage("");
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      setErrorMessage(error.response.data.message);
+    }
   }
+
   return (
     <div className="authentication">
       <Form onSubmitFunction={handleSubmit}>
+        {errorMessage !== "" && (
+          <div className="error-message">
+            <p>{errorMessage}</p>
+          </div>
+        )}
+
         {formType === "signup" && (
           <>
             <LabelInput labelText="First Name:">

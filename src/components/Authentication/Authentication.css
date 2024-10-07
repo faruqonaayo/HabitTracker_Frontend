@@ -55,6 +55,14 @@
   height: 35px;
 }
 
+.authentication .error-message{
+  background-color: rgb(255, 214, 214);
+  color: rgb(185, 28, 28);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid rgb(185, 28, 28);
+}
+
 @media (min-width: 768px) {
   .authentication .form {
     width: 50%;
