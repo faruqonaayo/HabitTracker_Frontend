@@ -33,13 +33,16 @@ function Authentication() {
         lastName.length > 1 &&
         password.length >= 5
       ) {
-        const response = await axios.put("http://localhost:3000/auth/signup", {
-          firstName,
-          lastName,
-          email,
-          password,
-          confirmPassword,
-        });
+        const response = await axios.put(
+          "https://habittracker-backend-vmpc.onrender.com/auth/signup",
+          {
+            firstName,
+            lastName,
+            email,
+            password,
+            confirmPassword,
+          }
+        );
 
         console.log(response.data);
         setFirstName("");
