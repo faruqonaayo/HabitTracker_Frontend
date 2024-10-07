@@ -7,14 +7,13 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import "./Authentication.css";
 
-function Authentication() {
+function Authentication({ onAuthenticate, apiUrl }) {
   const [formType, setFormType] = useState("login");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const [passwordMatch, setPasswordMatch] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   function handleFormType() {
@@ -25,7 +24,18 @@ function Authentication() {
   async function handleSubmit(e) {
     try {
       e.preventDefault();
-      if (password !== confirmPassword) {
+      if (formType === "login" && email.length > 0 && password.length > 0) {
+        const response = await axios.post(`${apiUrl}/auth/login/`, {
+          email,
+          password,
+        });
+        // console.log(response.data);
+        if (response.data.statusCode === 200) {
+          // saving token recieved from server to the app local storage
+          localStorage.setItem("dailySync_token", response.data.token);
+          onAuthenticate(true);
+        }
+      } else if (password !== confirmPassword) {
         setErrorMessage("Passwords do not match");
       } else if (
         formType === "signup" &&
@@ -33,16 +43,13 @@ function Authentication() {
         lastName.length > 1 &&
         password.length >= 5
       ) {
-        const response = await axios.put(
-          "https://habittracker-backend-vmpc.onrender.com/auth/signup",
-          {
-            firstName,
-            lastName,
-            email,
-            password,
-            confirmPassword,
-          }
-        );
+        const response = await axios.put(`${apiUrl}/auth/signup`, {
+          firstName,
+          lastName,
+          email,
+          password,
+          confirmPassword,
+        });
 
         console.log(response.data);
         setFirstName("");
