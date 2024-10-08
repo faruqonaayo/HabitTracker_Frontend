@@ -3,9 +3,9 @@ const defaultStyle = {
     cursor: "pointer",
 };
 
-function Button({ buttonText, addClass }) {
+function Button({ buttonText, addClass, onClickFunc }) {
   return (
-    <button className={`button ${addClass}`} style={defaultStyle}>
+    <button className={`button ${addClass}`} style={defaultStyle} onClick={onClickFunc}>
       {buttonText}
     </button>
   );

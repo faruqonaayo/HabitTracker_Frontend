@@ -5,6 +5,7 @@ import axios from "axios";
 import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
+import LabelInput from "../LabelInput/LabelInput";
 import "./Authentication.css";
 
 function Authentication({ onAuthenticate, apiUrl }) {
@@ -137,11 +138,4 @@ function Authentication({ onAuthenticate, apiUrl }) {
 
 export default Authentication;
 
-function LabelInput({ labelText, children }) {
-  return (
-    <div className="label-input">
-      <label>{labelText}</label>
-      {children}
-    </div>
-  );
-}
+

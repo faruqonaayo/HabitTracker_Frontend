@@ -2,7 +2,9 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import "./App.css";
 import Authentication from "./components/Authentication/Authentication";
+import Admin from "./components/Admin/Admin";
 
+// const apiUrl = "http://localhost:3000";
 const apiUrl = "https://habittracker-backend-vmpc.onrender.com";
 
 function App() {
@@ -37,7 +39,7 @@ function App() {
   return (
     <div className="App">
       {isAuthenticated ? (
-        <h1>Logged In</h1>
+        <Admin onAuthenticate={setIsAuthenticated} apiUrl={apiUrl} />
       ) : (
         <Authentication onAuthenticate={setIsAuthenticated} apiUrl={apiUrl} />
       )}

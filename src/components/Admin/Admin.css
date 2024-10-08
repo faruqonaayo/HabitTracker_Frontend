@@ -1,0 +1,132 @@
+.admin-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.admin-form {
+  background-color: #3c3d37;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 90%;
+  margin: 0px auto;
+}
+
+.admin-form .form {
+  background-color: #3c3d37;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.admin-form .form .label-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.admin-form .label-input label {
+  color: #b4daa7;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  margin-bottom: 3px;
+  font-weight: 400;
+}
+
+.admin-form .label-input input {
+  padding: 3px 5px;
+  font-size: 1.05rem;
+  font-weight: 400;
+  border-radius: 5px;
+  background-color: #ecdfcc;
+  color: #181c14;
+  margin-bottom: 15px;
+}
+
+.admin-form .expand-form-button {
+  background-color: #697565;
+  color: #ecdfcc;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  height: 35px;
+}
+
+.admin-form .submit-button {
+  background-color: #697565;
+  color: #ecdfcc;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 250px;
+  height: 35px;
+}
+
+.admin-form .error-message {
+  background-color: rgb(255, 214, 214);
+  color: rgb(185, 28, 28);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid rgb(185, 28, 28);
+}
+
+.admin .admin-status {
+  background: linear-gradient(to bottom, #63aa44, #016274);
+  border-radius: 10px;
+  padding: 10px 35px;
+  font-family: monospace;
+  color: #ecdfcc;
+  height: fit-content;
+  margin-bottom: 20px;
+}
+
+.admin .admin-status h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.admin .admin-status h3 {
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.admin .admin-status h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.admin .admin-status h2 span {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #01d4f9;
+}
+
+@media (min-width: 768px) {
+  .admin-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .admin .admin-status {
+    width: 32%;
+  }
+
+  .admin-form {
+    width: 65%;
+    height: fit-content;
+    margin: 0px;
+  }
+}
