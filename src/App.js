@@ -4,8 +4,8 @@ import "./App.css";
 import Authentication from "./components/Authentication/Authentication";
 import Admin from "./components/Admin/Admin";
 
-const apiUrl = "http://localhost:3000";
-// const apiUrl = "https://habittracker-backend-vmpc.onrender.com";
+// const apiUrl = "http://localhost:3000";
+const apiUrl = "https://habittracker-backend-vmpc.onrender.com";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
