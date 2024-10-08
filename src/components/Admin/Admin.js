@@ -14,6 +14,8 @@ function Admin({ apiUrl, onAuthenticate }) {
   const [expandHabitForm, setExpandHabitForm] = useState(false);
   const [adminFirstName, setAdminFirstName] = useState("");
   const [adminToken, setAdminToken] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     async function getAdminInfo() {
@@ -37,15 +39,61 @@ function Admin({ apiUrl, onAuthenticate }) {
   function handleExpandHabitForm() {
     setExpandHabitForm(!expandHabitForm);
   }
+
+  async function handleSubmitHabit(e) {
+    try {
+      e.preventDefault();
+      if (
+        habitTitle.length > 2 &&
+        habitStart.length === 5 &&
+        habitEnd.length === 5
+      ) {
+        const response = await axios.put(
+          `${apiUrl}/admin/habit`,
+          {
+            title: habitTitle.toLowerCase(),
+            start: habitStart,
+            end: habitEnd,
+          },
+          {
+            headers: {
+              Authorization: `Bearer=${localStorage.getItem(
+                "dailySync_token"
+              )}`,
+            },
+          }
+        );
+        console.log(response.data);
+        setSuccessMessage(response.data.message);
+        setErrorMessage("");
+        setHabitTitle("");
+        setHabitStart("");
+        setHabitEnd("");
+      }
+      else {
+        setErrorMessage("Enter valid habit details");
+        setSuccessMessage("");
+      }
+    } catch (error) {
+      // console.log(error);
+      if (error.response.data.statusCode === 401) {
+        onAuthenticate(false);
+      }
+      setErrorMessage(error.response.data.message);
+      setSuccessMessage("");
+    }
+  }
+
   return (
     <div className="admin">
       <div className="admin-header">
         <div className="admin-status">
-          <h1>Hello {adminFirstName}</h1>
-          <h3>keep the good habit going</h3>
-          <h2>
+          <h1>DailySync Web App</h1>
+          <h2>Hello {adminFirstName}</h2>
+          <p>keep the good habit going</p>
+          <h3>
             You have <span>{adminToken}</span> tokens left
-          </h2>
+          </h3>
         </div>
 
         <div className="admin-form">
@@ -55,12 +103,17 @@ function Admin({ apiUrl, onAuthenticate }) {
             onClickFunc={handleExpandHabitForm}
           />
           {expandHabitForm && (
-            <Form>
-              {/* {errorMessage !== "" && (
-            <div className="error-message">
-              <p>{errorMessage}</p>
-            </div>
-          )} */}
+            <Form onSubmitFunction={handleSubmitHabit}>
+              {errorMessage !== "" && (
+                <div className="error-message">
+                  <p>{errorMessage}</p>
+                </div>
+              )}
+              {successMessage !== "" && (
+                <div className="success-message">
+                  <p>{successMessage}</p>
+                </div>
+              )}
 
               <LabelInput labelText="Title:">
                 <Input
@@ -87,7 +140,10 @@ function Admin({ apiUrl, onAuthenticate }) {
                 />
               </LabelInput>
 
-              <Button buttonText="Add" addClass="submit-button" />
+              <Button
+                buttonText="Add for 10000 tokens"
+                addClass="submit-button"
+              />
             </Form>
           )}
         </div>

@@ -41,6 +41,12 @@
   color: #ecdfcc;
   font-size: 1.15rem;
   text-decoration: underline;
+  transition: all 0.5s ease;
+}
+
+.authentication .form .switch-auth p:hover {
+  color: #b4daa7;
+  cursor: pointer;
 }
 
 .authentication .submit-button {
@@ -53,9 +59,15 @@
   cursor: pointer;
   width: 250px;
   height: 35px;
+  transition: all 0.5s ease;
 }
 
-.authentication .error-message{
+.authentication .submit-button:hover {
+  background-color: #475f3f;
+  color: #b4daa7;
+}
+
+.authentication .error-message {
   background-color: rgb(255, 214, 214);
   color: rgb(185, 28, 28);
   padding: 10px 20px;
