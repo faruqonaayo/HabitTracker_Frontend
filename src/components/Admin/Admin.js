@@ -4,6 +4,7 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import LabelInput from "../LabelInput/LabelInput";
+import AdminHabit from "./AdminHabit/AdminHabit";
 import "./Admin.css";
 import axios from "axios";
 
@@ -16,6 +17,7 @@ function Admin({ apiUrl, onAuthenticate }) {
   const [adminToken, setAdminToken] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [adminHabits, setAdminHabits] = useState([]);
 
   useEffect(() => {
     async function getAdminInfo() {
@@ -30,11 +32,31 @@ function Admin({ apiUrl, onAuthenticate }) {
         setAdminFirstName(response.data.info.firstName);
         setAdminToken(response.data.info.habitTokens);
       } catch (error) {
-        onAuthenticate(false);
+        if (error.response.data.statusCode === 401) {
+          onAuthenticate(false);
+        }
       }
     }
     getAdminInfo();
   });
+
+  useEffect(() => {
+    async function getAdminHabits() {
+      try {
+        const response = await axios.get(`${apiUrl}/admin/allHabits`, {
+          headers: {
+            Authorization: `Bearer=${localStorage.getItem("dailySync_token")}`,
+          },
+        });
+        console.log(response.data);
+        setAdminHabits((c) => response.data.habits);
+        // return
+      } catch (error) {
+        onAuthenticate(false);
+      }
+    }
+    getAdminHabits();
+  }, [adminToken]);
 
   function handleExpandHabitForm() {
     setExpandHabitForm(!expandHabitForm);
@@ -69,13 +91,37 @@ function Admin({ apiUrl, onAuthenticate }) {
         setHabitTitle("");
         setHabitStart("");
         setHabitEnd("");
-      }
-      else {
+      } else {
         setErrorMessage("Enter valid habit details");
         setSuccessMessage("");
       }
     } catch (error) {
       // console.log(error);
+      if (error.response.data.statusCode === 401) {
+        onAuthenticate(false);
+      }
+      setErrorMessage(error.response.data.message);
+      setSuccessMessage("");
+    }
+  }
+
+  async function handleHabitClick(title) {
+    try {
+      const response = await axios.post(
+        `${apiUrl}/admin/checkHabit`,
+        {
+          title: title,
+        },
+        {
+          headers: {
+            Authorization: `Bearer=${localStorage.getItem("dailySync_token")}`,
+          },
+        }
+      );
+      console.log(response.data);
+      setAdminToken("...");
+      return response.data.statusCode;
+    } catch (error) {
       if (error.response.data.statusCode === 401) {
         onAuthenticate(false);
       }
@@ -147,6 +193,21 @@ function Admin({ apiUrl, onAuthenticate }) {
             </Form>
           )}
         </div>
+      </div>
+
+      <div className="admin-habits-container">
+        <h1>Check What you have done Today</h1>
+        {adminHabits.map((habit, index) => (
+          <AdminHabit
+            key={index}
+            habitTitle={habit.title}
+            habitStart={habit.startTime}
+            habitEnd={habit.endTime}
+            isDone={habit.isCompleted}
+            onClickFunc={handleHabitClick}
+          />
+        ))}
+        {/* <AdminHabit habitTitle="Exercise" habitStart="6:00" habitEnd="7:00" /> */}
       </div>
     </div>
   );

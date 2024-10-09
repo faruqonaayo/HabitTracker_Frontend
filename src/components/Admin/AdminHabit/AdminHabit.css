@@ -1,0 +1,38 @@
+.admin-habit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, #223410, #475f3f);
+  color: #ecdfcc;
+  padding: 13px 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.admin-habit:hover {
+  background: linear-gradient(to bottom, #5b8a4c, #28450b);
+}
+
+
+.admin-habit .habit-title{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.admin-habit .habit-title h2{
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.admin-habit .habit-time{
+    display: flex;
+    gap: 10px;
+}
+
+.admin-habit .habit-time p{
+    font-size: 0.9rem;
+    font-weight: 550;
+}

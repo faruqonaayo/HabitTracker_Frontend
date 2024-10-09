@@ -142,6 +142,25 @@
   color: #01d4f9;
 }
 
+.admin-habits-container{
+  background-color: #ecdfcc;
+  display: block;
+  padding: 8px 10px;
+  width: 90%;
+  margin: 20px auto;
+  text-align: center;
+  border-radius: 7px;
+  font-family: monospace;
+}
+
+.admin-habits-container h1{
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 5px;
+  color: #181c14;
+}
+
+
 @media (min-width: 768px) {
   .admin-header {
     display: flex;
